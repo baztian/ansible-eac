@@ -1,12 +1,13 @@
 galaxy_info:
   author: baztian
+  role: eac
   description: Role for setting up Exact Audio Copy via wine inside docker container
-  license: GPLv3
+  license: MIT
   min_ansible_version: 2.0
   platforms:
   - name: Ubuntu
     versions:
-    - xenial
+    - focal
   galaxy_tags:
     - multimedia
     - eac

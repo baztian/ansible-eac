@@ -1,18 +1,14 @@
-Role Name
-=========
+# Exact Audio Copy Ansible role
 
 Role to setup Exact Audio Copy via wine inside docker container.
 
-Example Playbook
-----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+## Example Playbook
 
     - hosts: servers
+      become: yes
       roles:
          - role: baztian.eac
 
-License
--------
+## License
 
-GPLv3
+MIT
