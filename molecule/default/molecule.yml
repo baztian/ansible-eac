@@ -11,6 +11,8 @@ driver:
 platforms:
   - name: instance
     image: "docker-${MOLECULE_DISTRO:-ubuntu2004}-ansible:latest"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 provisioner:
   name: ansible
   log: True
