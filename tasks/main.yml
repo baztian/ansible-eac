@@ -8,6 +8,7 @@
   docker_container:
     name: wine-eac-desktop-icon-extraction
     image: "{{ eac_image }}"
+    container_default_behavior: compatibility
     read_only: yes
     entrypoint: /bin/sh
     tty: yes
