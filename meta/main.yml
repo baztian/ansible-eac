@@ -1,6 +1,6 @@
 galaxy_info:
   author: baztian
-  role: eac
+  role_name: eac
   description: Role for setting up Exact Audio Copy via wine inside docker container
   license: MIT
   min_ansible_version: 2.0
