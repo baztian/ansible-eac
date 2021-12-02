@@ -6,18 +6,24 @@
     force_source: "{{ eac_force_pull_image }}"
 - name: Extract desktop icons from image {{ eac_image }}
   docker_container:
+    detach: false
     name: wine-eac-desktop-icon-extraction
     image: "{{ eac_image }}"
     container_default_behavior: compatibility
     read_only: yes
     entrypoint: /bin/sh
-    tty: yes
     command:
-      '-c ''(cd ${USER_PATH}/.local/share; tar -c --transform "s|\(.*/\).*_EAC.0|\1exact-audio-copy|" icons/hicolor/*/apps/*_EAC.0.png) > /tmp/eac-icons.tar'''
+      '-c ''(cd ${USER_PATH}/.local/share; tar -c --transform "s|\(.*/\).*_EAC.0|\1exact-audio-copy|" icons/hicolor/*/apps/*_EAC.0.png|base64)'''
     volumes:
       - /tmp:/tmp
     cleanup: yes
+  register: icons_tar_output
   changed_when: False
+- name: Safe desktop icons tar to file
+  copy:
+    content: "{{ icons_tar_output.container.Output | b64decode }}"
+    dest: /tmp/eac-icons.tar
+    mode: 0644
 - name: Create launcher directory
   file:
     path: /usr/local/share/applications
@@ -26,6 +32,7 @@
 - name: Install icons
   unarchive:
     src: /tmp/eac-icons.tar
+    remote_src: yes
     dest: /usr/local/share/
 - name: Create user config directory
   file:
